@@ -14,7 +14,6 @@ import android.util.Log;
 
 import java.util.Iterator;
 import java.util.Vector;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -66,6 +65,7 @@ public class FaceVerificationDispatchThread<T extends OkayFaceActivity> implemen
                 while (iter.hasNext()) {
                     final Face face = iter.next();
                     final Bitmap cropFaceBitmap = ImageUtils.cropFace(face, originalBitmap, 0);
+                    Log.i(TAG, Integer.toString(cropFaceBitmap.getWidth()) + "," + Integer.toString(cropFaceBitmap.getHeight()));
                     FaceFeature faceFeature = facenet.recognizeImage(cropFaceBitmap);
                     face.setFaceFeature(faceFeature);
 
