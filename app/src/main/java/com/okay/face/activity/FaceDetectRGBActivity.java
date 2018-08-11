@@ -111,7 +111,7 @@
 //    public void onCreate(Bundle icicle) {
 //        super.onCreate(icicle);
 //
-//        setContentView(R.layout.activity_camera_viewer);
+//        setContentView(R.layout.face_camera_activity);
 //
 //        mView = (SurfaceView) findViewById(R.id.surfaceview);
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);

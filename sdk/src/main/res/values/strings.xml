@@ -1,0 +1,3 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="detect_new_user">检测到您是新用户，请输入您的姓名</string>
+</resources>
