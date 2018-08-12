@@ -1,6 +1,7 @@
 package com.okay.face;
 
 import android.Manifest;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.os.Bundle;
@@ -12,14 +13,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
 import com.okay.face.activity.OkayFaceGrayActivity;
-import com.okay.face.repository.PersonRepository;
 
 
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
-    public static PersonRepository personRepository = new PersonRepository();
     private static final int RC_HANDLE_CAMERA_PERM_RGB = 1;
     private static final int RC_HANDLE_CAMERA_PERM_GRAY = 2;
 
@@ -79,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
 //        if (grantResults.length != 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED && requestCode == RC_HANDLE_CAMERA_PERM_RGB) {
 //            Intent intent = new Intent(mContext, FaceDetectRGBActivity.class);
