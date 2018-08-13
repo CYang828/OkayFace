@@ -128,7 +128,7 @@ public class FaceBox extends View {
                     break;
             }
 
-            canvas.save();
+            //canvas.save();
             canvas.rotate(-mOrientation);
 
             /** Grid
@@ -189,7 +189,7 @@ public class FaceBox extends View {
                     canvas.drawText("人脸探测置信度 " + face.score, rectF.left, rectF.bottom + mTextPaint.getTextSize() * 3, mTextPaint);
                     isShow = true;
                 }
-                canvas.restore();
+                //canvas.restore();
                 mFaces = null;
             }
         }

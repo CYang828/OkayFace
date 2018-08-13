@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class PersonRepository {
 
-    private static double SIMILARITY_THREADHOLD = 1.2;
+    private static double SIMILARITY_THREADHOLD = 1.1;
 
     private ArrayList<Person> personRepo;
 
@@ -28,6 +28,7 @@ public class PersonRepository {
 
         for(int i=0; i < personRepo.size(); i++) {
             dist = personRepo.get(i).getFace().getFaceFeature().compare(face.getFaceFeature());
+            Log.d("similarity", Double.toString(dist));
             if (dist > SIMILARITY_THREADHOLD) {
                 ret = -1;
             }

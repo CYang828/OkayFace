@@ -1,6 +1,5 @@
 package com.face.sdk.meta;
 
-import android.util.Log;
 
 /**
  * 人脸特征(512维特征值)
@@ -25,7 +24,6 @@ public class FaceFeature {
         for (int i = 0; i < DIMS; i++)
             dist += (fea[i] - ff.fea[i]) * (fea[i] - ff.fea[i]);
         dist = Math.sqrt(dist);
-        Log.i(TAG, Double.toString(dist));
         return dist;
     }
 }
