@@ -1,4 +1,7 @@
+apply plugin: 'com.novoda.bintray-release'
 apply plugin: 'com.android.library'
+
+
 
 android {
     compileSdkVersion 25
@@ -27,6 +30,15 @@ android {
     }
 }
 
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath'com.novoda:bintray-release:+'
+    }
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -35,4 +47,13 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     compile 'org.tensorflow:tensorflow-android:+'
+}
+
+publish {
+    userOrg = 'bslience'
+    groupId='com.face'
+    artifactId = 'sdk'
+    publishVersion = '0.0.1'
+    desc = 'face sdk'
+    website = 'https://github.com/BSlience/OkayFace'
 }

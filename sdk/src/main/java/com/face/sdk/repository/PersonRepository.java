@@ -20,7 +20,11 @@ public class PersonRepository {
     /**
      * 此人是否在仓库中
      *
-     * 返回list索引，-1则为不存在
+     * @param
+     * face : 人脸对象
+     *
+     * @return
+     * list索引，-1则为不存在
      */
     public int isInRepo(Face face) {
         int ret = -1;
@@ -45,6 +49,9 @@ public class PersonRepository {
 
     /**
      * 放入仓库
+     *
+     * @param
+     * person : 个人对象
      */
     public void putInRepo(Person person) {
         personRepo.add(person);
@@ -53,6 +60,12 @@ public class PersonRepository {
 
     /**
      * 如果此人在仓库中，找到并返回
+     *
+     * @param
+     * index : 搜索到人的索引
+     *
+     * @return
+     * 返回这个索引人的对象
      */
     public Person getFromRepo(int index) {
         return personRepo.get(index);
