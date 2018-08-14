@@ -7,7 +7,7 @@ env:
  - ANDROID_API=25
  - EMULATOR_API=21
  - ANDROID_BUILD_TOOLS=27.0.3
- - ADB_INSTALL_TIMEOUT=5 # minutes
+ - ADB_INSTALL_TIMEOUT=10 # minutes
 
 android:
  components:
@@ -28,13 +28,14 @@ licenses:
  - google-gdk-license-.+
 
 before_install:
-  - chmod +x gradlew
+ - chmod +x gradlew
 
 before_script:
-  - echo no | android create avd --force -n test -t "android-21"
-  - emulator -avd test -no-skin -no-audio -no-window &
-  - android-wait-for-emulator
-  - adb shell input keyevent 82 &
+ - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
+ - emulator -avd test -no-skin -no-audio -no-window &
+ - android-wait-for-emulator
+ - adb shell input keyevent 82 &
 
 script:
-  - "./gradlew clean build connectedCheck -PdisablePreDex --stacktrace"
+ - android list target
+ - ./gradlew clean build connectedCheck
