@@ -1,4 +1,6 @@
 language: android
+git:
+  depth: 10
 android:
   components:
     # Uncomment the lines below if you want to
