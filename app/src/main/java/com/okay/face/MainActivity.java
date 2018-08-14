@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mContext = this;
 
-        Button btnCameraRGB = (Button) findViewById(R.id.btnRGB);
+        //Button btnCameraRGB = (Button) findViewById(R.id.btnRGB);
 //        btnCameraRGB.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {

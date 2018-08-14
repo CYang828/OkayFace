@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="m.tri.face.MainActivity">
+    tools:context="com.okay.face.MainActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -33,27 +33,28 @@
                 android:layout_margin="@dimen/activity_vertical_margin"
                 android:text="灰度帧人脸识别" />
 
-            <Button
-                android:id="@+id/btnRGB"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/activity_vertical_margin"
-                android:text="RGB帧人脸识别" />
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:text="照片处理:"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+            <!--<Button-->
+                <!--android:id="@+id/btnRGB"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_margin="@dimen/activity_vertical_margin"-->
+                <!--android:text="RGB帧人脸识别" />-->
 
-            <Button
-                android:id="@+id/btnImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/activity_vertical_margin"
-                android:text="图片来源" />
+            <!--<TextView-->
+                <!--android:id="@+id/textView2"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="@dimen/activity_vertical_margin"-->
+                <!--android:text="照片处理:"-->
+                <!--android:textAppearance="?android:attr/textAppearanceMedium" />-->
+
+            <!--<Button-->
+                <!--android:id="@+id/btnImage"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_margin="@dimen/activity_vertical_margin"-->
+                <!--android:text="图片来源" />-->
 
         </LinearLayout>
     </ScrollView>

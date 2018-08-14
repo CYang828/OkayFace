@@ -5,9 +5,9 @@
     <color name="colorAccent" tools:ignore="ResourceName">#FF4081</color>
 
     <color name="colorBlackOverlay" tools:ignore="ResourceName">#44000000</color>
-    <color name="colorFaceBox" tools:ignore="ResourceName">#90009966</color>
+    <color name="colorFaceBox" tools:ignore="ResourceName">#009966</color>
     <color name="colorFaceBorder" tools:ignore="ResourceName">#80FFFFFF</color>
-    <color name="colorInformation" tools:ignore="ResourceName">#90009966</color>
+    <color name="colorInformation" tools:ignore="ResourceName">#009966</color>
     <color name="colorPopupWindowBackground" tools:ignore="ResourceName">#90ffffff</color>
     <color name="colorPassport">#90009966</color>
 </resources>
