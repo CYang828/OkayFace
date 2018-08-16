@@ -3,6 +3,7 @@ package com.face.sdk.ui;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -86,7 +87,8 @@ public class NewUser extends PopupWindow {
         initWindow();
         // 设置imageview为头像图
         profileHead.setImageBitmap(face.getFaceBitmap());
-        super.showAsDropDown(newUser, xoff, yoff);
+        // 需要显示在当前父窗口的右上角,坐标原点从左上角开始计算
+        super.showAtLocation(getContentView(), Gravity.LEFT | Gravity.TOP, xoff, yoff);
     }
 
     public void setFace(Face face) {

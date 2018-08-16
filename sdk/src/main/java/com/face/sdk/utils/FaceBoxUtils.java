@@ -15,7 +15,7 @@ import com.face.sdk.meta.Face;
 
 import java.util.Vector;
 
-public class Utils {
+public class FaceBoxUtils {
     //复制图片，并设置isMutable=true
     public static Bitmap copyBitmap(Bitmap bitmap){
         return bitmap.copy(bitmap.getConfig(),true);
@@ -33,7 +33,7 @@ public class Utils {
             paint.setStyle(Paint.Style.STROKE);
             canvas.drawRect(rect, paint);
         }catch (Exception e){
-            Log.i("Utils","[*] error"+e);
+            Log.i("FaceBoxUtils","[*] error"+e);
         }
     }
     //在图中画点
@@ -41,7 +41,7 @@ public class Utils {
         for (int i=0;i<landmark.length;i++){
             int x=landmark[i].x;
             int y=landmark[i].y;
-            //Log.i("Utils","[*] landmarkd "+x+ "  "+y);
+            //Log.i("FaceBoxUtils","[*] landmarkd "+x+ "  "+y);
             drawRect(bitmap,new Rect(x-1,y-1,x+1,y+1));
         }
     }

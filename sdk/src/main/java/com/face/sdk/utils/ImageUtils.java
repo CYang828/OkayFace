@@ -10,13 +10,82 @@ import android.graphics.Rect;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.text.Html;
+import android.util.Log;
 
 import com.face.sdk.meta.Face;
+
+import org.opencv.android.Utils;
+import org.opencv.core.CvType;
+import org.opencv.core.Mat;
+import org.opencv.imgproc.Imgproc;
 
 import java.io.IOException;
 
 
 public class ImageUtils {
+
+    public static boolean isBlurByOpenCV(Bitmap image) {
+        System.out.println("image.w=" + image.getWidth() + ",image.h=" + image.getHeight());
+        int l = CvType.CV_8UC1; //8-bit grey scale image
+        Mat matImage = new Mat();
+        Utils.bitmapToMat(image, matImage);
+        Mat matImageGrey = new Mat();
+        Imgproc.cvtColor(matImage, matImageGrey, Imgproc.COLOR_BGR2GRAY); // 图像灰度化
+
+        Bitmap destImage;
+        destImage = Bitmap.createBitmap(image);
+        Mat dst2 = new Mat();
+        Utils.bitmapToMat(destImage, dst2);
+        Mat laplacianImage = new Mat();
+        dst2.convertTo(laplacianImage, l);
+        Imgproc.Laplacian(matImageGrey, laplacianImage, CvType.CV_8U); // 拉普拉斯变换
+        Mat laplacianImage8bit = new Mat();
+        laplacianImage.convertTo(laplacianImage8bit, l);
+
+        Bitmap bmp = Bitmap.createBitmap(laplacianImage8bit.cols(), laplacianImage8bit.rows(), Bitmap.Config.ARGB_8888);
+        Utils.matToBitmap(laplacianImage8bit, bmp);
+        int[] pixels = new int[bmp.getHeight() * bmp.getWidth()];
+        bmp.getPixels(pixels, 0, bmp.getWidth(), 0, 0, bmp.getWidth(), bmp.getHeight()); // bmp为轮廓图
+
+        int maxLap = -16777216; // 16m
+        for (int pixel : pixels) {
+            if (pixel > maxLap)
+                maxLap = pixel;
+        }
+        int userOffset = -3881250; // 界线（严格性）降低一点
+        int soglia = -6118750 + userOffset; // -6118750为广泛使用的经验值
+        System.out.println("maxLap=" + maxLap);
+        if (maxLap <= soglia) {
+            System.out.println("这是一张模糊图片");
+        }
+        System.out.println("==============================================\n");
+        soglia += 6118750 + userOffset;
+        maxLap += 6118750 + userOffset;
+        Log.d("blur","opencvanswers..result：image.w=" + image.getWidth() + ", image.h=" + image.getHeight()
+                + "\nmaxLap= " + maxLap + "(清晰范围:0~" + (6118750 + userOffset) + ")"
+                + "\n" + Html.fromHtml("<font color='#eb5151'><b>" + (maxLap <= soglia ? "模糊" : "清晰") + "</b></font>"));
+        return maxLap <= soglia;
+    }
+
+    public static boolean isBlurByOpenCV(String picFilePath) {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inDither = true;
+        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+        // 通过path得到一个不超过2000*2000的Bitmap
+        Bitmap image = decodeSampledBitmapFromFile(picFilePath, options, 2000, 2000);
+        return isBlurByOpenCV(image);
+    }
+
+    public static Bitmap decodeSampledBitmapFromFile(String imgPath, BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(imgPath, options);
+        // inSampleSize为缩放比例，举例：options.inSampleSize = 2表示缩小为原来的1/2，3则是1/3，以此类推
+        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeFile(imgPath, options);
+    }
+
 
     public static int calculateInSampleSize(
             BitmapFactory.Options options, int reqWidth, int reqHeight) {

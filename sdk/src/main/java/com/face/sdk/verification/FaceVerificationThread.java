@@ -19,7 +19,13 @@ import java.util.ArrayList;
 
 public class FaceVerificationThread<T extends FaceInterfaceActivity>  extends BridgeRunnable<DetectedFaces, ArrayList<Person>, T> {
 
+    static {
+        // 加载opencv3库
+        System.loadLibrary("opencv_java3");
+    }
+
     private static String TAG = FaceVerificationThread.class.getSimpleName();
+    private static double THRESHOLD = 100;
 
     // 人脸编码模型
     private Facenet embedModel;
@@ -50,30 +56,37 @@ public class FaceVerificationThread<T extends FaceInterfaceActivity>  extends Br
                 // 切割人脸部分图像
                 final Bitmap cropFaceBitmap = ImageUtils.cropFace(face, detectedFaces.getOriginalBitmap(), 0);
                 face.setFaceBitmap(cropFaceBitmap);
-                // 使用探测模型获取探测后的数据
-                FaceFeature faceFeature = embedModel.embeddingFaces(cropFaceBitmap);
-                face.setFaceFeature(faceFeature);
 
-                // 判断是否为新的面孔，分别通知
-                int personId = personRepository.isInRepo(face);
+                // 验证人脸图像模糊程度
+                if (ImageUtils.isBlurByOpenCV(cropFaceBitmap)) {
+                    // 使用探测模型获取探测后的数据
+                    FaceFeature faceFeature = embedModel.embeddingFaces(cropFaceBitmap);
+                    face.setFaceFeature(faceFeature);
+
+                    // 判断是否为新的面孔，分别通知
+                    int personId = personRepository.isInRepo(face);
 
 
-                if (personId == -1) {
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            ctx.verificationNewFaceResultCallback(face);
-                        }
-                    });
-                } else {
-                    final Person person = personRepository.getFromRepo(personId);
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            ctx.verificationOldFaceResultCallback(person);
+                    if (personId == -1) {
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                ctx.verificationNewFaceResultCallback(face);
+                            }
+                        });
+                    } else {
+                        final Person person = personRepository.getFromRepo(personId);
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                ctx.verificationOldFaceResultCallback(person);
 
-                        }
-                    });
+                            }
+                        });
+                    }
+                }
+                else {
+                    Log.d(TAG, "face is flurry");
                 }
             }
 

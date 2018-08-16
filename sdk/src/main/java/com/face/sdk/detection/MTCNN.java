@@ -10,7 +10,7 @@ import android.util.Log;
 import com.face.sdk.R;
 import com.face.sdk.meta.DetectedFaces;
 import com.face.sdk.meta.Face;
-import com.face.sdk.utils.Utils;
+import com.face.sdk.utils.FaceBoxUtils;
 
 import org.tensorflow.contrib.android.TensorFlowInferenceInterface;
 
@@ -110,7 +110,7 @@ public class MTCNN implements DetectModel {
         int h = bitmap.getHeight();
 
         float[] PNetIn = normalizeImage(bitmap);
-        Utils.flip_diag(PNetIn, h, w, 3); //沿着对角线翻转
+        FaceBoxUtils.flip_diag(PNetIn, h, w, 3); //沿着对角线翻转
         inferenceInterface.feed(PNetInName, PNetIn, 1, w, h, 3);
         inferenceInterface.run(PNetOutName, false);
         int PNetOutSizeW = (int) Math.ceil(w * 0.5 - 5);
@@ -121,10 +121,10 @@ public class MTCNN implements DetectModel {
         inferenceInterface.fetch(PNetOutName[1], PNetOutB);
         /*
         //【写法一】先翻转，后转为2/3维数组
-        Utils.flip_diag(PNetOutP, PNetOutSizeW, PNetOutSizeH, 2);
-        Utils.flip_diag(PNetOutB, PNetOutSizeW, PNetOutSizeH, 4);
-        Utils.expand(PNetOutB, PNetOutBias);
-        Utils.expandProb(PNetOutP, PNetOutProb);
+        FaceBoxUtils.flip_diag(PNetOutP, PNetOutSizeW, PNetOutSizeH, 2);
+        FaceBoxUtils.flip_diag(PNetOutB, PNetOutSizeW, PNetOutSizeH, 4);
+        FaceBoxUtils.expand(PNetOutB, PNetOutBias);
+        FaceBoxUtils.expandProb(PNetOutP, PNetOutProb);
         */
 
         //【写法二】这个比较快，快了3ms。
@@ -254,7 +254,7 @@ public class MTCNN implements DetectModel {
         nms(totalBoxes, 0.7f, "Union");
         //BBR
         BoundingBoxReggression(totalBoxes);
-        return Utils.updateBoxes(totalBoxes);
+        return FaceBoxUtils.updateBoxes(totalBoxes);
     }
 
     //截取box中指定的矩形框(越界要处理)，并resize到size*size大小，返回数据存放到data中。
@@ -311,7 +311,7 @@ public class MTCNN implements DetectModel {
         int RNetInIdx = 0;
         for (int i = 0; i < num; i++) {
             crop_and_resize(bitmap, boxes.get(i), 24, curCrop);
-            Utils.flip_diag(curCrop, 24, 24, 3);
+            FaceBoxUtils.flip_diag(curCrop, 24, 24, 3);
             //Log.i(TAG,"[*]Pixels values:"+curCrop[0]+" "+curCrop[1]);
             for (int j = 0; j < curCrop.length; j++) RNetIn[RNetInIdx++] = curCrop[j];
         }
@@ -324,7 +324,7 @@ public class MTCNN implements DetectModel {
         //Nms
         nms(boxes, 0.7f, "Union");
         BoundingBoxReggression(boxes);
-        return Utils.updateBoxes(boxes);
+        return FaceBoxUtils.updateBoxes(boxes);
     }
 
     /**
@@ -371,7 +371,7 @@ public class MTCNN implements DetectModel {
         int ONetInIdx = 0;
         for (int i = 0; i < num; i++) {
             crop_and_resize(bitmap, boxes.get(i), 48, curCrop);
-            Utils.flip_diag(curCrop, 48, 48, 3);
+            FaceBoxUtils.flip_diag(curCrop, 48, 48, 3);
             for (int j = 0; j < curCrop.length; j++) ONetIn[ONetInIdx++] = curCrop[j];
         }
         //Run ONet
@@ -383,7 +383,7 @@ public class MTCNN implements DetectModel {
         BoundingBoxReggression(boxes);
         //Nms
         nms(boxes, 0.7f, "Min");
-        return Utils.updateBoxes(boxes);
+        return FaceBoxUtils.updateBoxes(boxes);
     }
 
     private void square_limit(Vector<Face> boxes, int w, int h) {
