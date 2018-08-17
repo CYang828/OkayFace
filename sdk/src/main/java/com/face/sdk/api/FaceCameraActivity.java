@@ -80,7 +80,7 @@ public class FaceCameraActivity extends FaceInterfaceActivity implements Surface
      */
     private void initFaceBox() {
         mFaceBox = new FaceBox(this);
-        addContentView(mFaceBox, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        addContentView(mFaceBox, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT , ViewGroup.LayoutParams.MATCH_PARENT));
     }
 
     /**

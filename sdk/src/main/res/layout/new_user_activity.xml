@@ -12,52 +12,45 @@
         android:layout_rowSpan="4"
         android:layout_column="0"
         android:layout_gravity="fill"
-        android:layout_width="150dp"/>
+        android:layout_width="150dp"
+        android:scaleType="fitStart"/>
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="5dp"
-        android:text="@string/detect_new_user"
-        android:singleLine="false"
-        android:textSize="15sp"
-        android:layout_row="0"
-        android:layout_column="1"
-        android:layout_gravity="left|bottom"
-        android:gravity="left" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_rowWeight="1"
+        android:layout_columnWeight="1">
 
-    <EditText
-        android:id="@+id/username_editview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="5dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:selectAllOnFocus="false"
-        android:singleLine="true"
-        android:visibility="visible"
-        android:layout_row="1"
-        android:layout_column="1"
-        android:layout_gravity="left|bottom"
-        android:gravity="left" />
+        <TextView
+            android:id="@+id/textView3"
+            android:textSize="18sp"
+            android:textColor="@color/colorBlack"
+            android:fontFamily="@font/pingfang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/detect_new_user"
+            android:gravity="center"/>
 
-    <Button
-        android:id="@+id/profile_head_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/new_user_btn"
-        android:text="确认"
-        android:focusable="true"
-        android:layout_row="2"
-        android:layout_column="1"
-        android:layout_gravity="left|bottom"
-        />
+        <EditText
+            android:id="@+id/username_editview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pingfang"
+            android:gravity="center"
+            android:hint="输入您的姓名"
+            android:inputType="textPersonName"
+            android:maxWidth="180dp"
+            android:textColor="@color/colorBlack"
+            android:theme="@style/AppTheme.EditText" />
 
+        <Button
+            android:theme="@style/AppTheme.Button"
+            android:id="@+id/profile_head_button"
+            android:text="确认"
+            android:focusable="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"/>
+
+    </LinearLayout>
 </GridLayout>

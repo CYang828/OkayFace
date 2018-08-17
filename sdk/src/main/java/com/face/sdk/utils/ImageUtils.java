@@ -53,18 +53,20 @@ public class ImageUtils {
             if (pixel > maxLap)
                 maxLap = pixel;
         }
-        int userOffset = -3881250; // 界线（严格性）降低一点
+        //int userOffset = -3881250; // 界线（严格性）降低一点
+        int userOffset = 0;
         int soglia = -6118750 + userOffset; // -6118750为广泛使用的经验值
         System.out.println("maxLap=" + maxLap);
         if (maxLap <= soglia) {
             System.out.println("这是一张模糊图片");
         }
         System.out.println("==============================================\n");
-        soglia += 6118750 + userOffset;
-        maxLap += 6118750 + userOffset;
+        //soglia += 6118750 + userOffset;
+        //maxLap += 6118750 + userOffset;
         Log.d("blur","opencvanswers..result：image.w=" + image.getWidth() + ", image.h=" + image.getHeight()
-                + "\nmaxLap= " + maxLap + "(清晰范围:0~" + (6118750 + userOffset) + ")"
+                + "\nmaxLap= " + maxLap + "(清晰范围:0~" + (soglia) + ")"
                 + "\n" + Html.fromHtml("<font color='#eb5151'><b>" + (maxLap <= soglia ? "模糊" : "清晰") + "</b></font>"));
+
         return maxLap <= soglia;
     }
 

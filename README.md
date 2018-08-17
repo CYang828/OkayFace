@@ -7,13 +7,16 @@ Enjoy it!
 You can import it to Android Studio and run it on device.
 
 # Installation
-Add <code>compile 'com.face:sdk:0.0.1'</code> to build.gradle dependencies of your app.
+Add <code>compile 'com.face:sdk:0.0.1'</code> to `build.gradle` dependencies of your app.
 Inherit <code>FaceCameraActivity</code> or <code>FaceInterfaceActivity</code> by your need.
 You can also learn it from the app. I'll show you the code there.
     
 # Description
 
 # Performance
+
+# Changelog
+[feature changelog](./changelog.md)
 
 # Roadmap
 [future feature and known issues](./roadmap.md)

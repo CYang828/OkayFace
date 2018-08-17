@@ -29,6 +29,8 @@ public class NewUser extends PopupWindow {
     private Button confirmButton;
     private EditText usernameEditText;
     private View newUser;
+    private int width;
+    private int height;
 
     public NewUser (Context ctx, int width, int height) {
         super(width, height);
@@ -48,12 +50,12 @@ public class NewUser extends PopupWindow {
 
         // 设置淡入淡出动画
         this.setAnimationStyle(R.style.AnimHorizontal);
-        this.setBackgroundDrawable(new ColorDrawable(newUser.getResources().getColor(R.color.colorPopupWindowBackground)));
+        this.setBackgroundDrawable(new ColorDrawable(newUser.getResources().getColor(R.color.colorWhite)));
         this.setElevation(20.0f);
         this.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
         profileHead = (ImageView) newUser.findViewById(R.id.profile_head_image);
-        profileHead.setAdjustViewBounds(true);
+        //profileHead.setAdjustViewBounds(true);
         // 确认后的操作
         confirmButton = (Button) newUser.findViewById(R.id.profile_head_button);
         usernameEditText = (EditText) newUser.findViewById(R.id.username_editview);
@@ -84,6 +86,10 @@ public class NewUser extends PopupWindow {
     }
 
     public void showAsDropDown(int xoff, int yoff) {
+        width = (int) (ctx.getPreviewWidth() * 0.4);
+        height = (int) (ctx.getPreviewHeight() * 0.25);
+        setWidth(width);
+        setHeight(height);
         initWindow();
         // 设置imageview为头像图
         profileHead.setImageBitmap(face.getFaceBitmap());

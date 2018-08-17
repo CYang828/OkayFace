@@ -58,7 +58,7 @@ public class FaceVerificationThread<T extends FaceInterfaceActivity>  extends Br
                 face.setFaceBitmap(cropFaceBitmap);
 
                 // 验证人脸图像模糊程度
-                if (ImageUtils.isBlurByOpenCV(cropFaceBitmap)) {
+                if (!ImageUtils.isBlurByOpenCV(cropFaceBitmap)) {
                     // 使用探测模型获取探测后的数据
                     FaceFeature faceFeature = embedModel.embeddingFaces(cropFaceBitmap);
                     face.setFaceFeature(faceFeature);

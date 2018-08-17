@@ -10,4 +10,10 @@
     <color name="colorInformation" tools:ignore="ResourceName">#009966</color>
     <color name="colorPopupWindowBackground" tools:ignore="ResourceName">#90ffffff</color>
     <color name="colorPassport">#90009966</color>
+
+    <!--Moorgen Theme Color-->
+    <color name="colorYellow">#FFD300</color>
+    <color name="colorWhite">#FFFEFF</color>
+    <color name="colorGray">#F0F0F0</color>
+    <color name="colorBlack">#303030</color>
 </resources>
